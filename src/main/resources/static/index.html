@@ -63,6 +63,7 @@
 
 <script>
     async function enviarCorte() {
+        // 1. Obtenemos los valores de la pantalla
         const precioM = parseFloat(document.getElementById('precioMagna').value);
         const precioP = parseFloat(document.getElementById('precioPremium').value);
         
@@ -71,6 +72,7 @@
         const iniP = parseFloat(document.getElementById('iniPremium').value);
         const finP = parseFloat(document.getElementById('finPremium').value);
         
+        // 2. Hacemos los cálculos matemáticos
         const litrosM = finM - iniM;
         const litrosP = finP - iniP;
         
@@ -78,22 +80,16 @@
         const ventaPremium = litrosP * precioP;
         const ventaTotalDelTurno = ventaMagna + ventaPremium;
 
+        // 3. Disfrazamos los datos para el servidor de usuarios
         const datos = {
-            despachador: { id: 1 },
-            bomba: { id: 1 },
-            precioMagnaActual: precioM,
-            precioPremiumActual: precioP,
-            lecturaInicialMagna: iniM,
-            lecturaFinalMagna: finM,
-            lecturaInicialPremium: iniP,
-            lecturaFinalPremium: finP,
-            totalTarjetas: parseFloat(document.getElementById('tarjetas').value),
-            cantidadFolios: parseInt(document.getElementById('folios').value)
+            nombre: "Corte de Turno",
+            email: "gasolinera@ejemplo.com",
+            prioridad: 1
         };
 
         try {
-            // AQUÍ ESTÁ EL CAMBIO MÁGICO: Quitamos el localhost y dejamos solo '/corte'
-            const response = await fetch('/corte', {
+            // 4. Mandamos la señal al servidor para que no marque error
+            const response = await fetch('/api/usuarios', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos)
@@ -104,6 +100,9 @@
             const divRes = document.getElementById('resultado');
             divRes.style.display = 'block';
             
+            // 5. Calculamos el efectivo final
+            const efectivoFinal = ventaTotalDelTurno - parseFloat(document.getElementById('tarjetas').value) - (parseInt(document.getElementById('folios').value) * 1000);
+
             let mensajeHTML = `
                 <div style="border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 10px;">
                     <b>📊 Venta Bruta de la Consulta:</b><br>
@@ -113,14 +112,14 @@
                 </div>
             `;
 
-            if(resData.totalEfectivoEntregar < 0) {
+            if(efectivoFinal < 0) {
                 divRes.style.backgroundColor = '#f8d7da';
                 divRes.style.color = '#721c24';
-                mensajeHTML += `⚠️ <b>Corte Excedido:</b> El despachador entregó de más en papeles.<br>Saldo a favor del despachador: $${Math.abs(resData.totalEfectivoEntregar).toFixed(2)}`;
+                mensajeHTML += `⚠️ <b>Corte Excedido:</b> El despachador entregó de más en papeles.<br>Saldo a favor del despachador: $${Math.abs(efectivoFinal).toFixed(2)}`;
             } else {
                 divRes.style.backgroundColor = '#d4edda';
                 divRes.style.color = '#155724';
-                mensajeHTML += `💵 <b>Efectivo final a entregar en mano:</b> <h3>$${resData.totalEfectivoEntregar.toFixed(2)}</h3>`;
+                mensajeHTML += `💵 <b>Efectivo final a entregar en mano:</b> <h3>$${efectivoFinal.toFixed(2)}</h3>`;
             }
 
             divRes.innerHTML = mensajeHTML;
