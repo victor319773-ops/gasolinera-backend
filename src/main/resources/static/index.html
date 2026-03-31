@@ -2,270 +2,134 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Usuarios - DBA</title>
-	<style>
-	    /* Estilos generales */
-	    :root {
-	        --primary-color: #4a148c; /* Un morado oscuro elegante */
-	        --secondary-color: #7c43bd; /* Morado más claro */
-	        --bg-color: #f4f7f6;
-	        --text-color: #333;
-	        --accent-color: #ffca28; /* Amarillo para acentos */
-	        --danger-color: #e53935; /* Rojo suave para borrar */
-	        --success-color: #43a047; /* Verde suave para guardar */
-	    }
-
-	    body {
-	        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	        margin: 0;
-	        padding: 40px;
-	        background-color: var(--bg-color);
-	        color: var(--text-color);
-	        display: flex;
-	        flex-direction: column;
-	        align-items: center;
-	    }
-
-	    /* Contenedor principal */
-	    .main-container {
-	        width: 100%;
-	        max-width: 1000px;
-	        background: rgb(135, 114, 212);
-	        padding: 30px;
-	        border-radius: 12px;
-	        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-	    }
-
-	    /* Encabezados */
-	    h2 {
-	        color: var(--primary-color);
-	        border-bottom: 2px solid var(--accent-color);
-	        padding-bottom: 10px;
-	        margin-bottom: 25px;
-	        display: flex;
-	        align-items: center;
-	        gap: 10px;
-	    }
-
-	    /* Formulario */
-	    .form-card {
-	        background: #fdfdfd;
-	        padding: 20px;
-	        border-radius: 8px;
-	        border: 1px solid #e0e0e0;
-	        display: flex;
-	        flex-wrap: wrap;
-	        gap: 15px;
-	        margin-bottom: 30px;
-	        box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
-	    }
-
-	    .form-group {
-	        display: flex;
-	        flex-direction: column;
-	        flex: 1 1 200px; /* Ancho flexible */
-	    }
-
-	    label {
-	        font-weight: bold;
-	        color: var(--secondary-color);
-	        margin-bottom: 5px;
-	        font-size: 0.9em;
-	    }
-
-	    input {
-	        padding: 12px;
-	        border: 1px solid #ccc;
-	        border-radius: 6px;
-	        font-size: 1em;
-	        transition: border-color 0.3s, box-shadow 0.3s;
-	    }
-
-	    input:focus {
-	        border-color: var(--secondary-color);
-	        box-shadow: 0 0 8px rgba(124, 67, 189, 0.3);
-	        outline: none;
-	    }
-
-	    /* Botones */
-	    .btn {
-	        padding: 12px 24px;
-	        border: none;
-	        cursor: pointer;
-	        border-radius: 6px;
-	        font-weight: bold;
-	        text-transform: uppercase;
-	        letter-spacing: 1px;
-	        transition: background-color 0.3s, transform 0.1s;
-	        font-size: 0.9em;
-	    }
-
-	    .btn:active { transform: translateY(1px); }
-
-	    .btn-save {
-	        background-color: var(--success-color);
-	        color: white;
-	        margin-top: auto; /* Alinear al fondo del group */
-	    }
-
-	    .btn-save:hover { background-color: #388e3c; }
-
-	    .btn-delete {
-	        background-color: transparent;
-	        color: var(--danger-color);
-	        border: 2px solid var(--danger-color);
-	        padding: 6px 12px;
-	        text-transform: none;
-	        letter-spacing: 0;
-	    }
-
-	    .btn-delete:hover {
-	        background-color: var(--danger-color);
-	        color: white;
-	    }
-
-	    /* Tabla */
-	    .table-container {
-	        width: 100%;
-	        overflow-x: auto; /* Para móviles */
-	    }
-
-	    table {
-	        width: 100%;
-	        border-collapse: separate;
-	        border-spacing: 0;
-	        margin-top: 10px;
-	        background: white;
-	        border-radius: 8px;
-	        overflow: hidden; /* Para que el borde de la tabla abrace a los rows */
-	        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-	    }
-
-	    th, td {
-	        padding: 16px;
-	        text-align: left;
-	        border-bottom: 1px solid #eee;
-	    }
-
-	    th {
-	        background-color: var(--primary-color);
-	        color: white;
-	        font-weight: 600;
-	        text-transform: uppercase;
-	        font-size: 0.85em;
-	        letter-spacing: 1px;
-	    }
-
-	    tr:last-child td { border-bottom: none; }
-
-	    tr:hover td { background-color: #f9f9f9; }
-
-	    /* Ajuste de iconos */
-	    .icon { font-size: 1.2em; }
-
-	</style>
+    <title>Corte de Turno - Gasolinera</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f4f4f4; }
+        .container { background: white; padding: 20px; border-radius: 8px; max-width: 500px; box-shadow: 0px 0px 10px #aaa; }
+        .campo { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input { width: 95%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        button:hover { background-color: #218838; }
+        #resultado { margin-top: 20px; padding: 15px; border-radius: 4px; display: none; }
+    </style>
 </head>
 <body>
 
-    <div class="main-container">
+<div class="container">
+    <h2>⛽ Cierre de Turno</h2>
+    
+    <div class="campo">
+        <label>Precio Magna ($):</label>
+        <input type="number" id="precioMagna" value="22.50" step="0.01">
+    </div>
+    <div class="campo">
+        <label>Precio Premium ($):</label>
+        <input type="number" id="precioPremium" value="24.80" step="0.01">
+    </div>
+    <hr>
+    
+    <div class="campo">
+        <label>Carrete Inicial Magna (Lts):</label>
+        <input type="number" id="iniMagna" value="100">
+    </div>
+    <div class="campo">
+        <label>Carrete Final Magna (Lts):</label>
+        <input type="number" id="finMagna" value="150">
+    </div>
+    <div class="campo">
+        <label>Carrete Inicial Premium (Lts):</label>
+        <input type="number" id="iniPremium" value="200">
+    </div>
+    <div class="campo">
+        <label>Carrete Final Premium (Lts):</label>
+        <input type="number" id="finPremium" value="220">
+    </div>
+    <hr>
+    
+    <div class="campo">
+        <label>Total en Tarjetas ($):</label>
+        <input type="number" id="tarjetas" value="200">
+    </div>
+    <div class="campo">
+        <label>Cantidad de Folios (de a $1000):</label>
+        <input type="number" id="folios" value="1">
+    </div>
 
-        <h2><span class="icon">👥</span> Registro de Usuarios</h2>
+    <button onclick="enviarCorte()">Calcular y Guardar Corte</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+    async function enviarCorte() {
+        const precioM = parseFloat(document.getElementById('precioMagna').value);
+        const precioP = parseFloat(document.getElementById('precioPremium').value);
         
-        <div class="form-card">
-            <div class="form-group">
-                <label for="nombre">Nombre Completo</label>
-                <input type="text" id="nombre" placeholder="Ej: Aaron Ramírez">
-            </div>
-            <div class="form-group">
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" placeholder="Ej: aaron@ejemplo.com">
-            </div>
-            <div class="form-group">
-                <label for="prioridad">Nivel de Prioridad</label>
-                <input type="number" id="prioridad" placeholder="Ej: 1 (Alto) - 3 (Bajo)">
-            </div>
-            <button class="btn btn-save" onclick="guardarUsuario()">Guardar Usuario</button>
-        </div>
+        const iniM = parseFloat(document.getElementById('iniMagna').value);
+        const finM = parseFloat(document.getElementById('finMagna').value);
+        const iniP = parseFloat(document.getElementById('iniPremium').value);
+        const finP = parseFloat(document.getElementById('finPremium').value);
+        
+        const litrosM = finM - iniM;
+        const litrosP = finP - iniP;
+        
+        const ventaMagna = litrosM * precioM;
+        const ventaPremium = litrosP * precioP;
+        const ventaTotalDelTurno = ventaMagna + ventaPremium;
 
-        <h2><span class="icon">📋</span> Lista de Usuarios</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Prioridad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="tabla-usuarios">
-                    </tbody>
-            </table>
-        </div>
+        const datos = {
+            despachador: { id: 1 },
+            bomba: { id: 1 },
+            precioMagnaActual: precioM,
+            precioPremiumActual: precioP,
+            lecturaInicialMagna: iniM,
+            lecturaFinalMagna: finM,
+            lecturaInicialPremium: iniP,
+            lecturaFinalPremium: finP,
+            totalTarjetas: parseFloat(document.getElementById('tarjetas').value),
+            cantidadFolios: parseInt(document.getElementById('folios').value)
+        };
 
-    </div> 
-
-
-    <script>
-        const API_URL = "http://localhost:8081/usuario";
-
-        // 1. FUNCIÓN PARA OBTENER LOS USUARIOS (GET)
-        async function cargarUsuarios() {
-            const respuesta = await fetch(API_URL);
-            const usuarios = await respuesta.json();
-            
-            const tabla = document.getElementById("tabla-usuarios");
-            tabla.innerHTML = ""; // Limpiar tabla
-            
-            usuarios.forEach(usuario => {
-                tabla.innerHTML += `
-                    <tr>
-                        <td>${usuario.id}</td>
-                        <td>${usuario.nombre}</td>
-                        <td>${usuario.email}</td>
-                        <td>${usuario.prioridad}</td>
-                        <td>
-                            <button class="btn btn-delete" onclick="eliminarUsuario(${usuario.id})">Borrar</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        // 2. FUNCIÓN PARA GUARDAR UN USUARIO (POST)
-        async function guardarUsuario() {
-            const nombre = document.getElementById("nombre").value;
-            const email = document.getElementById("email").value;
-            const prioridad = document.getElementById("prioridad").value;
-
-            const nuevoUsuario = { nombre, email, prioridad: parseInt(prioridad) };
-
-            await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(nuevoUsuario)
+        try {
+            // AQUÍ ESTÁ EL CAMBIO MÁGICO: Quitamos el localhost y dejamos solo '/corte'
+            const response = await fetch('/corte', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
             });
 
-            // Limpiar inputs
-            document.getElementById("nombre").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("prioridad").value = "";
+            const resData = await response.json();
+            
+            const divRes = document.getElementById('resultado');
+            divRes.style.display = 'block';
+            
+            let mensajeHTML = `
+                <div style="border-bottom: 1px solid #ccc; margin-bottom: 10px; padding-bottom: 10px;">
+                    <b>📊 Venta Bruta de la Consulta:</b><br>
+                    • Magna: ${litrosM.toFixed(2)} Lts = $${ventaMagna.toFixed(2)}<br>
+                    • Premium: ${litrosP.toFixed(2)} Lts = $${ventaPremium.toFixed(2)}<br>
+                    <b>💰 Total Vendido: $${ventaTotalDelTurno.toFixed(2)}</b>
+                </div>
+            `;
 
-            cargarUsuarios(); // Recargar la tabla
-        }
-
-        // 3. FUNCIÓN PARA BORRAR (DELETE)
-        async function eliminarUsuario(id) {
-            if(confirm("¿Estás seguro de eliminar este usuario?")) {
-                await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-                cargarUsuarios(); // Recargar la tabla
+            if(resData.totalEfectivoEntregar < 0) {
+                divRes.style.backgroundColor = '#f8d7da';
+                divRes.style.color = '#721c24';
+                mensajeHTML += `⚠️ <b>Corte Excedido:</b> El despachador entregó de más en papeles.<br>Saldo a favor del despachador: $${Math.abs(resData.totalEfectivoEntregar).toFixed(2)}`;
+            } else {
+                divRes.style.backgroundColor = '#d4edda';
+                divRes.style.color = '#155724';
+                mensajeHTML += `💵 <b>Efectivo final a entregar en mano:</b> <h3>$${resData.totalEfectivoEntregar.toFixed(2)}</h3>`;
             }
-        }
 
-        // Cargar los usuarios al abrir la página
-        cargarUsuarios();
-    </script>
+            divRes.innerHTML = mensajeHTML;
+
+        } catch (error) {
+            alert('Error al conectar con el servidor backend en la nube.');
+        }
+    }
+</script>
+
 </body>
 </html>
